@@ -5,6 +5,7 @@ angular.module('stackStoreApp')
     // Service logic
     // ...
     function cartServerCall(cart) {
+      if (cart == "noCartZone") return;
       $http.get('/api/orders/' + cart)
         .success(function(data) {
           var lineItems = data.orderItems;
@@ -36,7 +37,7 @@ angular.module('stackStoreApp')
             //$cookieStore.remove('ccookie');
             var cookie = $cookieStore.get('ccookie');
             cookie = cookie || 'noCartZone';
-            console.log('COokie ', cookie);
+            //console.log('COokie ', cookie);
             return cartServerCall(cookie);
           }
           return cartServerCall(user.cart);
